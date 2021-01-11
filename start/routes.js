@@ -25,6 +25,7 @@ Route.group( () => {
   // Route for user login
   Route.post("/auth/login", "UserController.login").validator("LoginUser");
 
-  // Route for get all post
+  // Route for post
   Route.get("/allpost", "PostController.view");
+  Route.post("/create/post", "PostController.create").validator("CreatePost");
 }).prefix("api");
