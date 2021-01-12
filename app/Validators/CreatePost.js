@@ -1,21 +1,22 @@
-'use strict'
+"use strict";
 
 class CreatePost {
-  get rules () {
+  get rules() {
     return {
       // validation rules
-      'title': 'required',
-      'post': 'required'
-    }
+      title: "required",
+      post: "required",
+    };
   }
   get messages() {
     return {
-      'required': '{{ field }} is required.',
-    }
+      "title.required": "Title is required.",
+      "post.required": "Description is required.",
+    };
   }
-  async fails(error) {      
-    return this.ctx.response.send(error); 	
-}
+  async fails(error) {
+    return this.ctx.response.send(error);
+  }
 }
 
-module.exports = CreatePost
+module.exports = CreatePost;

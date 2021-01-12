@@ -28,6 +28,8 @@ class PostController {
       // const user = await auth.getUser();
       // get form data
       const { title, post, user_id } = request.all();
+      // console.log(user_id);
+      // return
       const blog = new Blog();
       blog.fill({
         title,
