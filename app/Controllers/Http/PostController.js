@@ -21,6 +21,27 @@ class PostController {
       });
     }
   }
+  // view my post
+  async viewMyPost({ auth, response, request }) {
+    try {
+      // get user data
+      // const user = await auth.getUser();
+      // console.log(user);
+      // get my post
+      const myPost = await Database.table("blogs")
+        // .where("user_id", user.id)
+        .select(
+        "title",
+        "post",
+        "user_id"
+      );
+      return myPost;
+    } catch (error) {
+      return response.status(500).send({
+        error: "Something went wrong",
+      });
+    }
+  }
   // create propsData
   async create({ request, response }) {
     try {

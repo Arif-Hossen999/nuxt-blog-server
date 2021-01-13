@@ -27,5 +27,6 @@ Route.group( () => {
 
   // Route for post
   Route.get("/allpost", "PostController.view");
+  Route.get("/mypost", "PostController.viewMyPost");
   Route.post("/create/post", "PostController.create").validator("CreatePost");
 }).prefix("api");

@@ -23,6 +23,8 @@ class UserController {
   // function for login route
   async login({ request, auth, response }) {
     try {
+      // console.log("login try");
+      // console.log(request.all());
       // get form data
       const { email, password } = request.all();
       // check email exist or not
