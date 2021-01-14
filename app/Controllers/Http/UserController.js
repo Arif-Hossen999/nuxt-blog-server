@@ -5,7 +5,7 @@ const User = use("App/Models/User");
 const Hash = use("Hash");
 class UserController {
   // function register user
-  async register({ request,response }) {
+  async register({ request, response }) {
     try {
       const user = await User.create(
         request.only(["username", "email", "password"])
@@ -65,6 +65,26 @@ class UserController {
       });
     } catch (error) {
       // console.log(error)
+      return response.status(500).send({
+        error: "Something went wrong",
+      });
+    }
+  }
+  // user login info
+  async userInfo({ auth, response, request }) {
+    try {
+      // console.log("userInfotry");
+      // console.log(request.headers());
+      // const user = await auth.getUser();
+
+      const user = await User.query()
+        .where("id", auth.user.id)
+        .setHidden(["password"])
+        .first();
+      // console.log(user.toJSON(), "userInfo");
+      return user;
+    } catch (error) {
+      // console.log(error);
       return response.status(500).send({
         error: "Something went wrong",
       });

@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +14,9 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route')
+const Route = use("Route");
 
-Route.group( () => {
+Route.group(() => {
   // Route for user registration
   Route.post("/auth/register", "UserController.register").validator(
     "CreateUser"
@@ -24,9 +24,10 @@ Route.group( () => {
 
   // Route for user login
   Route.post("/auth/login", "UserController.login").validator("LoginUser");
-
+  Route.get("/auth/user", "UserController.userInfo").middleware(["auth:jwt"]);
   // Route for post
   Route.get("/allpost", "PostController.view");
-  Route.get("/mypost", "PostController.viewMyPost");
+  Route.get("/mypost", "PostController.viewMyPost")
+  //.middleware(["auth:jwt"]);
   Route.post("/create/post", "PostController.create").validator("CreatePost");
 }).prefix("api");

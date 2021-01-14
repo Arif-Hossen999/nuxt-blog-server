@@ -26,17 +26,14 @@ class PostController {
     try {
       // get user data
       // const user = await auth.getUser();
-      // console.log(user);
+      // console.log(request.headers());
       // get my post
       const myPost = await Database.table("blogs")
         // .where("user_id", user.id)
-        .select(
-        "title",
-        "post",
-        "user_id"
-      );
+        .select("title", "post", "user_id");
       return myPost;
     } catch (error) {
+      console.log(error);
       return response.status(500).send({
         error: "Something went wrong",
       });
@@ -55,11 +52,10 @@ class PostController {
       blog.fill({
         title,
         post,
-        user_id
-      })
+        user_id,
+      });
       await blog.save();
       return blog;
-      
     } catch (error) {
       return response.status(500).send({
         error: "Something went wrong",
