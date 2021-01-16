@@ -25,11 +25,11 @@ class PostController {
   async viewMyPost({ auth, response, request }) {
     try {
       // get user data
-      // const user = await auth.getUser();
+      const user = await auth.getUser();
       // console.log(request.headers());
       // get my post
       const myPost = await Database.table("blogs")
-        // .where("user_id", user.id)
+        .where("user_id", user.id)
         .select("title", "post", "user_id");
       return myPost;
     } catch (error) {
