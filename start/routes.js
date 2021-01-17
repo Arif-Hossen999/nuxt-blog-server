@@ -27,7 +27,10 @@ Route.group(() => {
   Route.get("/auth/user", "UserController.userInfo").middleware(["auth:jwt"]);
   // Route for post
   Route.get("/allpost", "PostController.view");
-  Route.get("/mypost", "PostController.viewMyPost")
+  Route.get("/mypost", "PostController.viewMyPost");
   //.middleware(["auth:jwt"]);
   Route.post("/create/post", "PostController.create").validator("CreatePost");
+  // Route.get("/post/edit/:id","PostController.edit")
+  Route.patch("/post/:id", "postController.update");
+  Route.delete("/post/:id", "postController.delete")
 }).prefix("api");
