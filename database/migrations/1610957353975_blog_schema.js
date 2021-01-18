@@ -9,6 +9,7 @@ class BlogSchema extends Schema {
       table.increments()
       table.string('title', 80).notNullable()
       table.string('post', 255).notNullable()
+      table.integer('status', 60)
       table.integer('user_id').notNullable()
       table.timestamps()
     })

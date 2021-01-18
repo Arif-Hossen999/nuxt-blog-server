@@ -27,10 +27,16 @@ Route.group(() => {
   Route.get("/auth/user", "UserController.userInfo").middleware(["auth:jwt"]);
   // Route for post
   Route.get("/allpost", "PostController.view");
-  Route.get("/mypost", "PostController.viewMyPost");
-  //.middleware(["auth:jwt"]);
-  Route.post("/create/post", "PostController.create").validator("CreatePost");
+  Route.get("/mypost", "PostController.viewMyPost").middleware("auth");
+  Route.post("/create/post", "PostController.create")
+    .validator("CreatePost")
+    .middleware("auth");
   // Route.get("/post/edit/:id","PostController.edit")
-  Route.patch("/post/:id", "postController.update");
-  Route.delete("/post/:id", "postController.delete")
+  Route.patch("/post/:id", "postController.update").middleware("auth");
+  Route.delete("/post/:id", "postController.delete").middleware("auth");
+  // Route for upload image
+  Route.post("/images", "ImageController.upload").middleware("auth");
+  Route.get("/images", "ImageController.view").middleware("auth");
+  Route.patch("/images/:id", "ImageController.update").middleware("auth");
+  Route.delete("/images/:id", "ImageController.destroy").middleware("auth");
 }).prefix("api");

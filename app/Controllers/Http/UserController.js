@@ -7,9 +7,14 @@ class UserController {
   // function register user
   async register({ request, response }) {
     try {
-      const user = await User.create(
-        request.only(["username", "email", "password"])
-      );
+      // get form data
+      const { username, email, password } = request.all();
+      const user = await User.create({
+        username,
+        email,
+        password,
+        status: 1,
+      });
       // console.log(user)
       //   const isCheck = 1;
       return user;

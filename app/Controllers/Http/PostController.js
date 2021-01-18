@@ -10,7 +10,9 @@ class PostController {
       // get user data
       // const user = await auth.getUser();
       // get all post
-      const allPost = await Database.table("blogs").select(
+      const allPost = await Database.table("blogs")
+      .where('blogs.status', 1)
+        .select(
         "title",
         "post",
         "user_id"
@@ -31,6 +33,7 @@ class PostController {
       // get my post
       const myPost = await Database.table("blogs")
         .where("user_id", user.id)
+        .where('blogs.status', 1)
         .select("id","title", "post", "user_id");
       return myPost;
     } catch (error) {
@@ -54,6 +57,7 @@ class PostController {
         title,
         post,
         user_id,
+        status:1,
       });
       await blog.save();
       return blog;
@@ -120,8 +124,9 @@ class PostController {
       // Authorization Permission
       AuthorizationService.verifyPermission(userId, postUserId);
       // delete post
-      const deletePost = await postDelete.delete();
-      return deletePost;
+      postDelete.status = 0;
+      await postDelete.save();
+      return postDelete;
     } catch (error) {
       return response.status(500).send({
         error: "Something went wrong",
