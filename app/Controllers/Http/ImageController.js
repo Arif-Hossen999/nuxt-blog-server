@@ -27,15 +27,17 @@ class ImageController {
   // upload user image
   async upload({ response, request, auth }) {
     try {
+      // console.log(request.file('image').toJSON());
       // get user data
       const user = await auth.getUser();
       // get user id
-      const user_id = request.input("user_id");
+      // const user_id = request.input("user_id");
       // get user image
-      const image_url = request.file("image_url", {
+      const image_url = request.file("image", {
         types: ["image"],
         size: "2mb",
       });
+      // console.log(image_url, "image_url");
       // create image name
       const imageName = moment().utc() + "_imagename-name.jpg";
       // move image into public folder
@@ -52,7 +54,7 @@ class ImageController {
       image.fill({
         image_url: imageName,
         status: 1,
-        user_id: user_id,
+        user_id: user.id,
       });
       await image.save();
       return image;
