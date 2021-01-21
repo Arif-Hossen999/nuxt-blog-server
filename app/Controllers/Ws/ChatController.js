@@ -6,6 +6,7 @@ class ChatController {
     this.request = request
   }
   onMessage (message) {
+    
     this.socket.broadcastToAll('message', message)
   }
 }
