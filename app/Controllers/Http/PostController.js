@@ -17,6 +17,7 @@ class PostController {
         "post",
         "user_id"
       );
+      console.log(allPost , "all post");
       return allPost;
     } catch (error) {
       return response.status(500).send({

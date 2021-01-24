@@ -7,6 +7,8 @@ class LiveChatSchema extends Schema {
   up () {
     this.create('live_chats', (table) => {
       table.increments()
+      table.integer('user_id').notNullable()
+      table.string('socket_id', 254).notNullable()
       table.timestamps()
     })
   }
