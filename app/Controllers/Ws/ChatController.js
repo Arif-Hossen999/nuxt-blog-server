@@ -50,12 +50,6 @@ class ChatController {
         receive_user_id: receiveUserId,
         message: userMessage,
       });
-      // get message
-      const allMessage = await Database.table("live_chat_details")
-        .where({ "send_user_id": sendUserId , "receive_user_id": receiveUserId})
-        // .where("receive_user_id", receiveUserId)
-        .select("message");
-        // console.log(allMessage, "all Message")
       // get send user socket id
       const sendUserSocketData = await LiveChat.find(sendUserId);
       const sendUserSocketId = sendUserSocketData.socket_id;
@@ -66,7 +60,7 @@ class ChatController {
 
       // this.socket.broadcastToAll("message", (message.userName + " : " + message.body));
       // this.socket.broadcastToAll("message", message.body);
-      this.socket.emitTo("message", allMessage, [
+      this.socket.emitTo("message", userMessage, [
         sendUserSocketId, // send user socket id
         receiveUserSocketId, // receive user socket id
       ]);

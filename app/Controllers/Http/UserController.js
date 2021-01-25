@@ -1,6 +1,7 @@
 "use strict";
 // use user table
 const User = use("App/Models/User");
+const Database = use("Database");
 // use for update password
 const Hash = use("Hash");
 class UserController {
@@ -88,6 +89,22 @@ class UserController {
         .first();
       // console.log(user.toJSON(), "userInfo");
       return user;
+    } catch (error) {
+      // console.log(error);
+      return response.status(500).send({
+        error: "Something went wrong",
+      });
+    }
+  }
+  // get all user
+  async view({ auth, response }) {
+    try {
+      const user = await auth.getUser();
+      // console.log(user);
+      const userDetails = await Database.table("users")
+        .whereNot("id", user.id)
+        .select("id", "username");
+      return userDetails;
     } catch (error) {
       // console.log(error);
       return response.status(500).send({

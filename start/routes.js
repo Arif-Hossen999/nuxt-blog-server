@@ -25,6 +25,10 @@ Route.group(() => {
   // Route for user login
   Route.post("/auth/login", "UserController.login").validator("LoginUser");
   Route.get("/auth/user", "UserController.userInfo").middleware(["auth:jwt"]);
+  // Route for get all user
+  Route.get("/alluser", "UserController.view");
+  // Route for get user message 
+  Route.get("/usermessage/:id","MessageController.view")
   // Route for post
   Route.get("/allpost", "PostController.view");
   Route.get("/mypost", "PostController.viewMyPost").middleware("auth");
