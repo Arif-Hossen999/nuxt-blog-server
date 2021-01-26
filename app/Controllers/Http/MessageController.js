@@ -16,7 +16,7 @@ class MessageController {
         .orWhere(function () {
           this.where("send_user_id", id).where("receive_user_id", user.id);
         })
-        .select("message");
+        .select("message","user_name");
       // console.log(userMessage, "Message");
       return userMessage;
     } catch (error) {
