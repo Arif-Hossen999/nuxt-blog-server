@@ -68,6 +68,7 @@ class ChatController {
       let messageDetails = {
         sendUserName,
         sendUserId,
+        receiveUserId,
         userMessage
       }
       // this.socket.broadcastToAll("message", (message.userName + " : " + message.body));
