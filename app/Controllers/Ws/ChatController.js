@@ -17,9 +17,12 @@ class ChatController {
       const username = info.userName;
       // console.log(username);
       // find user socket id exist or not
-      const userData = await LiveChat.find(userId);
-      // console.log(userData);
-      if (!userData) {
+      const userData = await Database.table("live_chats")
+      .where("user_id", userId)
+      .select("user_id")
+      // console.log(userData, "user data");
+      // return
+      if (userData == '') {
         await Database.table("live_chats").insert({
           user_id: userId,
           socket_id: this.socket.id,
@@ -78,7 +81,7 @@ class ChatController {
         receiveUserSocketId, // receive user socket id
       ]);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 }
